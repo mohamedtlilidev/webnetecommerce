@@ -18,13 +18,16 @@ How install ?
 
   * Download project with **git clone or direct download**
   
-  * use composer to install dependencies **cd my_project/ and composer install**
+  * Use composer to install dependencies **cd my_project/ and composer install**
   
-  * use doctrine to generate entity in database **php bin/console doctrine:schema:update --force --dump-sql**
+  * Use doctrine to generate entity in database **php bin/console doctrine:schema:update --force --dump-sql**
   
   * Starting the Web Server **php bin/console server:start** and [http://127.0.0.1:8000][16]
   
+Unit test ?
 
+
+  * To execute unit test **cd my_project/**  and then execute command **php vendor/bin/phpunit  tests**
 
 The Symfony Standard Edition is configured with the following defaults:
 

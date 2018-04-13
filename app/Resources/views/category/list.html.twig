@@ -36,28 +36,32 @@
         <tfoot>
         <tr>
             <td colspan="8">
-                <div class="dataTables_info">
-                    Showing {% if pagination.page>1 %}{{ (pagination.page-1)*pagination.max_per_page }}{% else %}1{% endif %}
-                    to {{ pagination.page*pagination.max_per_page }} of {{ pagination.nb_products }} entries
-                </div>
-                <div class="dataTables_paginate paging_simple_numbers" id="pagination_bottom">
-                    <div class="pagination-buttons">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
                         {% if pagination.page>1 %}
-                            <a class="paginate" href="{{ path('get_products_categories',{'id':category.id,'page':1} )}}"><<</a>
-                            <a class="paginate" href="{{ path('get_products_categories',{'id':category.id,'page':pagination.page-1})}}"><</a>
+                            <li class="page-item">
+                                <a class="page-link" href="{{ path('get_products_categories',{'id':category.id,'page':pagination.page-1})}}" tabindex="-1">Previous</a>
+                            </li>
                         {% endif %}
                         {#display p numbers only from p-3 to p+3 but don't go <1 or >pages_count#}
                         {% for p in range(max(pagination.page-3, 1),
                         min(pagination.page+3, pagination.pages_count)) %}
-                            <a{% if p == pagination.page %} class="paginate_button current"{% else %} class="paginate_button paginate"{% endif %}
-                                    href="{{ path('get_products_categories',{'id':category.id,'page':p} )}}">{{ p }}</a>
+                        <li class="page-item"><a{% if p == pagination.page %} class="page-link current"{% else %} class="page-link"{% endif %}
+                                    href="{{ path('get_products_categories',{'id':category.id,'page':p} )}}">{{ p }}
+                            </a>
+                        </li>
                         {% endfor %}
                         {% if pagination.page<pagination.pages_count %}
-                            <a class="paginate" href="{{ path('get_products_categories',{'id':category.id,'page':pagination.page+1} )}}">></a>
-                            <a class="paginate" href="{{ path('get_products_categories',{'id':category.id,'page':pagination.pages_count} )}}">>></a>
+                            <li class="page-item">
+                                <a class="page-link" href="{{ path('get_products_categories',{'id':category.id,'page':pagination.page+1} )}}">Next</a>
+                            </li>
                         {% endif %}
+                    </ul>
+                    <div class="dataTables_info">
+                        Showing {% if pagination.page>1 %}{{ (pagination.page-1)*pagination.max_per_page }}{% else %}1{% endif %}
+                        to {{ pagination.page*pagination.max_per_page }} of {{ pagination.nb_products }} entries
                     </div>
-                </div>
+                </nav>
             </td>
         </tr>
         </tfoot>
