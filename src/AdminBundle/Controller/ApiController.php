@@ -58,5 +58,54 @@ class ApiController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     * @ApiDoc(
+     *  resource=true,
+     *  description="List All products",
+     *  filters={
+     *  }
+     * )
+     * @Route("/categories/{id}/products/{page}", name="_get_products_by_categories",defaults={"page"=1},options={"expose"=true})
+     * @Method({"POST","GET"})
+     */
+    public function getProductsByCategoryAction(Category $category=null,$page=null)
+    {
+        try{
+            $max_per_page=2;
 
+            if(is_null($page) || intval($page)==0)
+                $page=1;
+
+            if(!$category instanceof Category){
+                return array('error'=>true,'code'=>404,'message'=>'Category not found','data'=>[]);
+            }
+
+            //Entity manager
+            $em = $this->getDoctrine()->getManager();
+            //Get Repository
+            $repository=$em->getRepository('AdminBundle:Product');
+
+            //Find All products
+            $products=$repository->findProductsByCategory($category->getId(),$page,true,$max_per_page);
+
+            //Count products
+            $products_count=count($products);
+
+            $pagination = array(
+                'page' => $page,
+                'max_per_page' => $max_per_page,
+                'pages_count' => ceil( $products_count/ $max_per_page),
+                'nb_products' => $products_count
+            );
+            //return array data
+            return array('error'=>false,'code'=>200,'message'=>'Ok','data'=>$products,'pagination'=>$pagination);
+
+        }catch (Exception $ex){
+
+            return array('error'=>true,'code'=>$ex->getCode(),'message'=>$ex->getMessage(),'data'=>[]);
+        }
+
+    }
 }
