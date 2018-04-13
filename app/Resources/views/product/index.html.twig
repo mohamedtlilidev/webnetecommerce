@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Product creation</h1>
+    <form class="form-horizontal form-validate-jquery" method="post">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Add product</h5>
+
+            </div>
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <fieldset>
+                            <div class="form-group">
+                                {{ form_label(form.name,null,
+                                {'label':'Name','label_attr':{'class':'col-lg-3 control-label'}}) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.name, { 'attr': {'class': 'form-control','required':'required'}}) }}
+                                    {{ form_errors(form.name) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.price,null,
+                                {'label':'Price','label_attr':{'class':'col-lg-3 control-label'}}) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.price, { 'attr': {'class': 'form-control','required':'required'}}) }}
+                                    {{ form_errors(form.price) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.currency,null,
+                                {'label':'Currency','label_attr':{'class':'col-lg-3 control-label'}}) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.currency, { 'attr': {'class': 'form-control','required':'required'}}) }}
+                                    {{ form_errors(form.currency) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.quantity,null,
+                                {'label':'Quantity','label_attr':{'class':'col-lg-3 control-label'}}) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.quantity, { 'attr': {'class': 'form-control','required':'required'}}) }}
+                                    {{ form_errors(form.quantity) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.name,null,
+                                {'label':'Categories','label_attr':{'class':'col-lg-3 control-label'}}) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.categories, { 'attr': {'class': 'form-control','required':'required'}}) }}
+                                    {{ form_errors(form.categories) }}
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+
+                </div>
+                {{ form_rest(form) }}
+                <div class="text-right">
+                    <input type="submit" value="Add Products" class="btn btn-primary"/>
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+    <h1>Products list</h1>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Associated Categories</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.price }}&nbsp;{{ product.currency }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>
+                    <ul>
+                        {% for category in product.categories %}
+                            <li><a href="{{ path('get_products_categories',{'id':category.id}) }}">{{ category.name }}</a> </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
