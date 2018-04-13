@@ -14,6 +14,18 @@ For details on how to download and get started with Symfony, see the
 What's inside?
 --------------
 
+How install ?
+
+  * Download project with **git clone or direct download**
+  
+  * use composer to install dependencies **cd my_project/ and composer install**
+  
+  * use doctrine to generate entity in database **php bin/console doctrine:schema:update --force --dump-sql**
+  
+  * Starting the Web Server **php bin/console server:start** and [http://127.0.0.1:8000][16]
+  
+
+
 The Symfony Standard Edition is configured with the following defaults:
 
   * An AppBundle you can use to start coding;
@@ -75,3 +87,4 @@ Enjoy!
 [13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
 [14]: https://symfony.com/doc/current/setup/built_in_web_server.html
 [15]: https://symfony.com/doc/current/setup.html
+[16]: http://127.0.0.1:8000
