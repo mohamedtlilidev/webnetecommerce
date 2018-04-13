@@ -1,13 +1,37 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Admin Shop!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+
+    <!-- Global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
+          type="text/css">
+
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+    <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+
+
+</head>
+<body>
+{% include 'topmenu.html.twig' %}
+<!-- Page container -->
+<div class="container">
+    {% include 'message.html.twig' %}
+    <!-- Page content -->
+    <div class="page-content">
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+    </div>
+    <!-- /page content -->
+</div>
+<!-- /page container -->
+
+
+{% block javascripts %}{% endblock %}
+</body>
 </html>
+

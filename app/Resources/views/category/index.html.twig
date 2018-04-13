@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Category creation</h1>
+
+    <form class="form-horizontal form-validate-jquery" method="post" enctype="multipart/form-data">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">Add category</h5>
+
+            </div>
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <fieldset>
+                            <div class="form-group">
+                                {{ form_label(form.name,null,
+                                {'label':'Name','label_attr':{'class':'col-lg-3 control-label'}}) }}
+                                <div class="col-lg-9">
+                                    {{ form_widget(form.name, { 'attr': {'class': 'form-control','required':'required'}}) }}
+                                    {{ form_errors(form.name) }}
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+
+                </div>
+                {{ form_rest(form) }}
+                <div class="text-right">
+                    <input type="submit" value="Add Category" class="btn btn-primary"/>
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+    <h1>Categories list</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Created On</th>
+                <th>Show products</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
+                <td>{{ category.createdOn|date('Y-m-d H:i:s') }}</td>
+                <td><a href="{{ path('get_products_categories',{'id':category.id}) }}">Show All products</a></td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

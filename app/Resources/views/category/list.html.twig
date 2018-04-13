@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if category is not null %}
+    <h1>Category Info</h1>
+
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <th>Name</th>
+            <td>{{ category.name }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <h1>List of products</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.quantity }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="8">
+                <div class="dataTables_info">
+                    Showing {% if pagination.page>1 %}{{ (pagination.page-1)*pagination.max_per_page }}{% else %}1{% endif %}
+                    to {{ pagination.page*pagination.max_per_page }} of {{ pagination.nb_products }} entries
+                </div>
+                <div class="dataTables_paginate paging_simple_numbers" id="pagination_bottom">
+                    <div class="pagination-buttons">
+                        {% if pagination.page>1 %}
+                            <a class="paginate" href="{{ path('get_products_categories',{'id':category.id,'page':1} )}}"><<</a>
+                            <a class="paginate" href="{{ path('get_products_categories',{'id':category.id,'page':pagination.page-1})}}"><</a>
+                        {% endif %}
+                        {#display p numbers only from p-3 to p+3 but don't go <1 or >pages_count#}
+                        {% for p in range(max(pagination.page-3, 1),
+                        min(pagination.page+3, pagination.pages_count)) %}
+                            <a{% if p == pagination.page %} class="paginate_button current"{% else %} class="paginate_button paginate"{% endif %}
+                                    href="{{ path('get_products_categories',{'id':category.id,'page':p} )}}">{{ p }}</a>
+                        {% endfor %}
+                        {% if pagination.page<pagination.pages_count %}
+                            <a class="paginate" href="{{ path('get_products_categories',{'id':category.id,'page':pagination.page+1} )}}">></a>
+                            <a class="paginate" href="{{ path('get_products_categories',{'id':category.id,'page':pagination.pages_count} )}}">>></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+    {% endif %}
+{% endblock %}
