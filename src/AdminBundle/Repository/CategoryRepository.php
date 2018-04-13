@@ -13,7 +13,8 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
     /**
      * @return array
      */
-    public function getAllCategories(){
+    public function getAllCategories()
+    {
 
         $qb=$this->getEntityManager()->createQueryBuilder();
         $qb->select('category','products')

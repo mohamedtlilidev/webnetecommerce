@@ -52,7 +52,8 @@ class CategoryController extends Controller
      * @Route("/{id}/products/{page}",name="get_products_categories")
      * @Method({"GET","POST"})
      */
-    public function getProductsByCategoryAction(Category $category=null,$page=null){
+    public function getProductsByCategoryAction(Category $category=null,$page=null)
+    {
 
 
         if (is_null($page))

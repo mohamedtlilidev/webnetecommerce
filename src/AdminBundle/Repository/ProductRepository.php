@@ -19,7 +19,8 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
      * @param int $maxperpage
      * @return array|Paginator
      */
-    public function findProductsByCategory($id_category,$page=1,$api=true,$maxperpage=5){
+    public function findProductsByCategory($id_category,$page=1,$api=true,$maxperpage=5)
+    {
 
 
         $qb=$this->getEntityManager()->createQueryBuilder();
@@ -43,7 +44,8 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
      * @param $id_category
      * @return array
      */
-    public function findAllProducts(){
+    public function findAllProducts()
+    {
 
         $qb=$this->getEntityManager()->createQueryBuilder();
         $qb->select('product','categories')
